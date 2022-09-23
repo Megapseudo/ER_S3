@@ -1,2 +1,5 @@
 # ER_S3
-# Ceci est un test pour pull
+# Début du Code pour la veste Haptique 
+# lien du google Doc :
+# https://docs.google.com/document/d/16U0RF2TdCVYdYivV8JAZJr5Dt-ToCTWgyMAWG-3kOrA/edit
+
