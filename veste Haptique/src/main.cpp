@@ -1,8 +1,12 @@
 #include <Arduino.h>
 #include "WiFi.h"
 // Nom et Mot de passe du réseau WiFi
+/*
 const char* ssid = "Sir Remy";
 const char* password = "objectifRemysurletoitdumondeen2022";
+*/
+const char* ssid = "freebox-3336AD";
+const char* password = "nkh94q2hbtqmrwxvqwhbrd";
 
 void setup() {
   // put your setup code here, to run once:
