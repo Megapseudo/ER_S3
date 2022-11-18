@@ -10,9 +10,9 @@ const char* password = "nkh94q2hbtqmrwxvqwhbrd";
 réseau partage de co
 const char* ssid = "Keg Smash";
 const char* password = "12345678";
-*/
-const char* ssid = "Freebox-3336AD";
-const char* password = "nkh94q2hbtqmrwxvqwhbrd";
+*/ 
+const char* ssid = "Sir Remy";
+const char* password = "objectifRemysurletoitdumondeen2022";
 char tempo;
 
 void setup() {
