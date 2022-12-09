@@ -1,6 +1,6 @@
 #include <Arduino.h>
 #include "WiFi.h"
-#include "WebSockets.h"
+#include "WebSocketsServer.h"
 
 char tempo;
 void init_connection(); 
@@ -11,13 +11,13 @@ BaseType_t status;
 
 
 void setup() {  
-  // put your setup code here, to run once:
-  // launch wifi connection with ssid and password
-  init_connection();
-  // création des deux taches qu'on va utiliser
-  xTaskCreate(TaskTCPlink,"TaskTPClink",1000,NULL,1,NULL);
+  //put your setup code here, to run once:
+  //launch wifi connection with ssid and password
+   init_connection();
+  //création des deux taches qu'on va utiliser
+  xTaskCreate(TaskTCPlink,"TaskTPClink",1000,NULL,1 ,NULL);
   xTaskCreate(TaskTORlink,"TaskTORlink",1000,NULL,1,NULL);
-}
+ }
 
 
 void  loop() {
@@ -25,25 +25,25 @@ void  loop() {
 
 }
 void init_connection()
-
 {
-  // Nom et Mot de passe du réseau WiFi
-//  réseau E&R :
-const char* ssid = "Sir Remy";
+ // Nom et Mot de passe du réseau WiFi
+ //réseau E&R :
+const char* ssid = "Routeur Maison";
 const char* password = "objectifRemysurletoitdumondeen2022";
-//   réseau maison
-// const char* ssid = "F reebox-3336AD";
-// const char* password = "nkh94q2hbtqmrwxvqwhbrd";
-// réseau partage de co
-// const char* ssid = "Keg Smash";
-// const char* password = "12345678";
+  //réseau maison
+const char* ssid = "F reebox-3336AD";
+const char* password = "nkh94q2hbtqmrwxvqwhbrd";
+ // réseau partage de co
+const char* ssid = "Keg Smash";
+const char* password = "12345678";
 
 
-  Serial.begin(115200); //création de la liason ESP/console (paramettre =Nbbaud)
+  Serial.begin(9600); //création de la liason ESP/console (paramettre =Nbbaud)
   delay(1000);
 
   WiFi.mode(WIFI_STA); // met l'ESP en mode client 
   WiFi.begin(ssid, password); //se connecte au réseau wifi 
+  Serial.println("test");
   Serial.println("\n Connecting..."); 
   
   while(WiFi.status()!= WL_CONNECTED) // écrit des points tant que la connection n'est pas faite
@@ -64,6 +64,7 @@ const char* password = "objectifRemysurletoitdumondeen2022";
 }
 void TaskTPClink(void*pvParameters)
 {
+  
 while(1)
 {
   
@@ -79,7 +80,7 @@ status =xQueueReceive( xQueue,&octet, portMAX_DELAY);;
 //paramettrage  entrées/sorties
 pinMode(Mout1,OUTPUT);
 pinMode(Mout2,OUTPUT);
-pinMode(Mout3,OUTPUT);
+pinMode(Mout3,OUTPUT); 
 pinMode(Mout4,OUTPUT);
 pinMode(Mout5,OUTPUT);
 pinMode(Mout6,OUTPUT);
@@ -115,5 +116,6 @@ while(1)
   if(ordreM8 != 0) digitalWrite(Mout7,HIGH);
   else digitalWrite(Mout8,HIGH);
 }
-
 }
+
+
