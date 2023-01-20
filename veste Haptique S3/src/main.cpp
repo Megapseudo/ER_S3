@@ -100,7 +100,7 @@ pinMode(Mout4,OUTPUT);
 pinMode(Mout5,OUTPUT);
 pinMode(Mout6,OUTPUT);
 pinMode(Mout7,OUTPUT);
-pinMode(Mout8,OUTPUT);  
+pinMode(Mout8,OUTPUT);   
 
 while(1)
 {
@@ -108,7 +108,7 @@ while(1)
   ordreM1 = (octet>>0) & 0x01;
   ordreM2 = (octet>>1) & 0x01;
   ordreM3 = (octet>>2) & 0x01;
-  ordreM4 = (octet>>3) & 0x01;
+  ordreM4 = (octet>>3) & 0x01;   
   ordreM5 = (octet>>4) & 0x01;
   ordreM6 = (octet>>5) & 0x01;
   ordreM7 = (octet>>6) & 0x01;
@@ -118,7 +118,7 @@ while(1)
   else digitalWrite(Mout1,HIGH);
   if(ordreM2 !=0 ) digitalWrite(Mout2,HIGH);
   else digitalWrite(Mout2,HIGH);
-  if(ordreM3 !=0 ) digitalWrite(Mout3,HIGH);
+  if(ordreM3 !=0 ) digitalWrite(Mout3,HIGH);    
   else digitalWrite(Mout3,HIGH);
   if(ordreM4 !=0 ) digitalWrite(Mout4,HIGH);
   else digitalWrite(Mout4,HIGH);
@@ -132,44 +132,24 @@ while(1)
   else digitalWrite(Mout8,HIGH);
 }
 }
-
 void webSocketEvent(uint8_t num, WStype_t type, uint8_t * payload, size_t length) {
 
     switch(type) {
         case WStype_DISCONNECTED:
             Serial.printf("[%u] Disconnected!\n", num);
             break;
-        case WStype_CONNECTED:
-            {
-                IPAddress ip = WiFi.localIP();
-                Serial.printf("[%u] Connected from %d.%d.%d.%d url: %s\n", num, ip[0], ip[1], ip[2], ip[3], payload);
+        case WStype_CONNECTED: {
+            IPAddress ip = WiFi.localIP();
+            Serial.printf("[%u] Connected from %d.%d.%d.%d url: %s\n", num, ip[0], ip[1], ip[2], ip[3], payload);
 
-				// send message to client
-				webSocket.sendTXT(num, "Connected");
-            }
+            // send message to client
+            webSocket.sendTXT(num, "Connected");
+        }
             break;
         case WStype_TEXT:
             Serial.printf("[%u] get Text: %s\n", num, payload);
-
-            // send message to client
-            // webSocket.sendTXT(num, "message here");
-
-            // send data to all connected clients
-            // webSocket.broadcastTXT("message here");
+           xQueueSend(xQueue,&payload,portMAX_DELAY);
             break;
-        case WStype_BIN:
-            Serial.printf("[%u] get binary length: %u\n", num, length);
-            hexdump(payload, length);
-
-            // send message to client
-            // webSocket.sendBIN(num, payload, length);
-            break;
-		case WStype_ERROR:			
-		case WStype_FRAGMENT_TEXT_START:
-		case WStype_FRAGMENT_BIN_START:
-		case WStype_FRAGMENT:
-		case WStype_FRAGMENT_FIN:
-			break;
     }
 
 }
